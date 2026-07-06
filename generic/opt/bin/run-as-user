@@ -10,8 +10,9 @@ fi
 # configure normal user
 export HOME="$HOME/$PUSER"
 (
-	getent group "$PGID" || addgroup "$PGROUP" --gid "$PGID"
-	getent passwd "$PUID" || adduser "$PUSER" --uid "$PUID" --gid "$PGID" --gecos "" --home "$HOME" --disabled-password
+	# busybox addgroup/adduser syntax (Alpine)
+	cut -d: -f3 /etc/group | grep -qx "$PGID" || addgroup -g "$PGID" "$PGROUP"
+	cut -d: -f3 /etc/passwd | grep -qx "$PUID" || adduser -D -u "$PUID" -G "$PGROUP" -h "$HOME" "$PUSER"
 	mkdir -p "$HOME"
 	chown -R "$PUID:$PGID" "$HOME"
 ) > /dev/null 2>&1

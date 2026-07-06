@@ -65,6 +65,10 @@ exec java \
   -Djdk.attach.allowAttachSelf=true \
   -Dnet.filebot.UserFiles.fileChooser=Swing \
   -Dnet.filebot.glass.effect=false \
+  --add-opens=java.base/java.lang=ALL-UNNAMED \
+  --add-opens=java.base/java.io=ALL-UNNAMED \
+  --add-opens=java.base/java.util=ALL-UNNAMED \
+  --add-opens=java.base/java.lang.reflect=ALL-UNNAMED \
   --add-opens=java.desktop/sun.font=ALL-UNNAMED \
   --add-opens=java.desktop/java.awt=ALL-UNNAMED \
   --add-opens=java.desktop/sun.java2d=ALL-UNNAMED \

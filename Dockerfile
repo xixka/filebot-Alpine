@@ -80,6 +80,10 @@ COPY --from=filebot /opt/xpra-www /usr/share/xpra/www
 COPY --chmod=0755 <<'EOF' /usr/bin/filebot
 #!/bin/sh
 exec java \
+  --add-exports=java.desktop/sun.swing=ALL-UNNAMED \
+  --add-exports=java.desktop/sun.awt=ALL-UNNAMED \
+  --add-opens=java.desktop/sun.swing=ALL-UNNAMED \
+  --add-opens=java.desktop/sun.awt=ALL-UNNAMED \
   -Dapplication.deployment=docker \
   -Duser.home="${HOME:-/data}" \
   -Dnet.filebot.UserFiles.trash=XDG \

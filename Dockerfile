@@ -60,12 +60,12 @@ RUN set -eux \
     font-wqy-microhei \
  ## ** remove unneeded icons to reduce image size
  && rm -rf /usr/share/icons/Adwaita/cursors \
- && find /usr/share/icons/Adwaita -type f -name '*.svg' -delete \
- && find /usr/share/icons/Adwaita -type f -name '*.png' -delete \
+ && find /usr/share/icons/Adwaita -type f -name '*.svg' -delete 2>/dev/null || true \
+ && find /usr/share/icons/Adwaita -type f -name '*.png' -delete 2>/dev/null || true \
  ## ** silence xpra startup error messages
  && mkdir -m 777 -p /tmp/xdg/xpra \
- && rm -rf /usr/share/xpra/www/default-settings.* \
- && chmod 777 /run/user \
+ && rm -f /usr/share/xpra/www/default-settings.* \
+ && mkdir -p /run/user && chmod 777 /run/user \
  && mkdir -m 777 -p /run/xpra \
  && chmod 775 /run/xpra \
  && mkdir -m 777 -p /etc/xdg/menus \

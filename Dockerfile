@@ -76,6 +76,16 @@ exec java \
   --add-opens=java.desktop/sun.awt.image=ALL-UNNAMED \
   --add-opens=java.desktop/java.awt.dnd.peer=ALL-UNNAMED \
   --add-opens=java.desktop/java.awt.image=ALL-UNNAMED \
+  --add-opens=java.desktop/sun.awt=ALL-UNNAMED \
+  --add-exports=java.desktop/sun.awt=ALL-UNNAMED \
+  --add-exports=java.desktop/sun.font=ALL-UNNAMED \
+  --add-exports=java.desktop/sun.java2d=ALL-UNNAMED \
+  --add-exports=java.desktop/sun.awt.image=ALL-UNNAMED \
+  --add-exports=java.desktop/java.awt.peer=ALL-UNNAMED \
+  --add-exports=java.base/java.lang=ALL-UNNAMED \
+  --add-exports=java.base/java.io=ALL-UNNAMED \
+  --add-exports=java.base/java.util=ALL-UNNAMED \
+  --add-exports=java.base/java.lang.reflect=ALL-UNNAMED \
   org.jetbrains.projector.server.ProjectorLauncher "$@"
 EOF
 

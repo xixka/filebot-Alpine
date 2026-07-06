@@ -12,18 +12,7 @@ RUN apk --no-cache add curl \
  && mkdir -p /opt/filebot \
  && cp -R /tmp/filebot/jar /opt/filebot/
 
-## Stage 2: build custom JRE via jlink
-FROM --platform=$BUILDPLATFORM eclipse-temurin:17-jdk-alpine AS jre
-RUN jlink \
-    --add-modules java.base,java.desktop,java.logging,java.management,java.naming,java.net.http,java.scripting,java.sql,java.transaction.xa,java.xml,java.instrument,jdk.crypto.cryptoki,jdk.crypto.ec,jdk.unsupported,jdk.attach,jdk.localedata,jdk.zipfs \
-    --bind-services \
-    --strip-debug \
-    --no-man-pages \
-    --no-header-files \
-    --compress=1 \
-    --output /opt/jre
-
-## Stage 3: runtime with projector
+## Stage 2: runtime with projector
 FROM alpine:3.20
 
 LABEL maintainer="Reinhard Pointner <rednoah@filebot.net>"
@@ -32,34 +21,33 @@ ARG FILEBOT_VERSION
 ENV FILEBOT_VERSION=${FILEBOT_VERSION}
 ENV HOME="/data"
 ENV LANG="C.UTF-8"
-ENV PATH="/opt/jre/bin:${PATH}"
 ENV PUID="1000"
 ENV PGID="1000"
 ENV PUSER="filebot"
 ENV PGROUP="filebot"
 
-# install runtime deps + projector (curl/unzip are build-only here, removed after)
+# install dependencies + projector
 RUN set -eux \
  && apk add --no-cache \
+      bash \
       sudo \
       trash-cli \
       unzip \
       curl \
+      findutils \
+      coreutils \
+      openjdk17-jre \
  && apk add --no-cache \
       --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
       java-jna-native \
-      font-wqy-microhei \
+      font-wqy-zenhei \
  # install projector
  && curl -fsSL -o /tmp/projector-server.zip https://github.com/JetBrains/projector-server/releases/download/v1.8.1/projector-server-v1.8.1.zip \
  && unzip /tmp/projector-server.zip -d /opt \
  && mv /opt/projector-server-* /opt/projector-server \
- && rm -rf /opt/projector-server/lib/slf4j-* /opt/projector-server/bin /tmp/projector-server.zip \
- # remove build-only tools now
- && apk del unzip curl \
- && rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
+ && rm -rf /opt/projector-server/lib/slf4j-* /opt/projector-server/bin /tmp/projector-server.zip
 
-# install custom JRE and filebot
-COPY --from=jre /opt/jre /opt/jre
+# install filebot
 COPY --from=filebot /opt/filebot /opt/filebot
 
 # create filebot launcher with projector config baked in

@@ -52,7 +52,7 @@ RUN set -eux \
     coreutils \
     xpra \
     xauth \
-    dbus \
+    dbus-x11 \
     zenity \
     ttf-dejavu \
     adwaita-icon-theme \

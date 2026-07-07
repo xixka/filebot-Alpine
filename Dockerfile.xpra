@@ -14,9 +14,9 @@ RUN set -eux \
  ## ** install runtime dependencies
  && apk add --no-cache --update \
     openjdk17-jre \
-    mediainfo chromaprint \
+    mediainfo \
     xpra openbox xauth dbus-x11 \
-    xdg-utils xdg-user-dirs \
+    xdg-user-dirs \
     ttf-dejavu font-wqy-zenhei \
  ## ** install java-jna-native from edge community
  && apk add --no-cache --update \

@@ -4,6 +4,12 @@
 # silence xpra startup error messages
 export XDG_RUNTIME_DIR="/tmp"
 
+# allow AWT/GTK to run without a real GNOME session
+export GNOME_DESKTOP_SESSION_ID="this-is-deprecated"
+
+# merge container JVM options into filebot options (consumed by filebot.sh)
+export FILEBOT_OPTS="$FILEBOT_OPTS $CONTAINER_OPTS"
+
 mkdir -m 700 -p "/tmp/xpra/0"
 mkdir -m 700 -p "/run/user/$PUID/xpra"
 

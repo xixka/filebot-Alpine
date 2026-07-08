@@ -66,6 +66,15 @@ ENV XPRA_BIND="0.0.0.0"
 ENV XPRA_PORT="5454"
 ENV XPRA_AUTH="none"
 
+## container JVM options (passed to filebot via FILEBOT_OPTS in the start script)
+ENV CONTAINER_OPTS=" \
+    -DuseGVFS=false \
+    -Dapplication.update=skip \
+    -Dawt.useSystemAAFontSettings=on \
+    -Dnet.filebot.UserFiles.fileChooser=Zenity \
+    -Dnet.filebot.util.prefs.sync=true \
+"
+
 
 EXPOSE $XPRA_PORT
 

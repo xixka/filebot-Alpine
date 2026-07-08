@@ -1,0 +1,6 @@
+# Ignore all dot-folders (hidden directories, e.g. .idea, .workbuddy)
+.*/
+
+# OS junk
+.DS_Store
+Thumbs.db

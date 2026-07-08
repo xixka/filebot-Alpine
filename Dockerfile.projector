@@ -42,7 +42,6 @@ RUN set -eux \
  && apk add --no-cache \
       bash \
       sudo \
-      trash-cli \
       openjdk17-jre \
       libmediainfo \
       font-wqy-zenhei \
@@ -69,12 +68,11 @@ exec java \
   -DuseCreationDate=false \
   -Djna.nosys=false \
   -Djna.nounpack=true \
-  -Dnet.filebot.UserFiles.trash=XDG \
   -Dorg.jetbrains.projector.server.enable=true \
   -Dorg.jetbrains.projector.server.classToLaunch=net.filebot.Main \
   -XX:+EnableDynamicAgentLoading \
   -Djdk.attach.allowAttachSelf=true \
-  -Xmx384m \
+  -Xmx399m \
   -XX:+UseG1GC \
   -XX:MaxMetaspaceSize=128m \
   -XX:ReservedCodeCacheSize=64m \
